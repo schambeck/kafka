@@ -1,9 +1,40 @@
+APP = kafka
+VERSION = 0.0.1-SNAPSHOT
+JAR = target/${APP}-${VERSION}.jar
 KAFKA_CONF = C:/kafka/config
 AB = ab
 AB_TIME = 1
 AB_CONCURRENCY = 5
 API_BASE_URL = http://localhost:8090
 API_PAYLOAD = ${AB}/invoice-payload.json
+
+# Spring
+
+clean:
+	./mvnw clean
+
+all: clean
+	./mvnw compile
+
+install: clean
+	./mvnw install
+
+check: clean
+	./mvnw verify
+
+check-unit: clean
+	./mvnw test
+
+check-integration: clean
+	./mvnw integration-test
+
+dist: clean
+	./mvnw package -Dmaven.test.skip=true
+
+dist-run: dist run
+
+run:
+	java -jar ${JAR}
 
 # Server
 
@@ -77,7 +108,6 @@ get-offsets:
 
 publish-invoice:
 	http --style=pie-dark -vv POST ${API_BASE_URL}/invoices \
-		id=1 \
 		issued='2022-04-03' \
 		total=1500
 
@@ -89,3 +119,8 @@ ab-publish-invoice:
 		-t ${AB_TIME} \
 		-c ${AB_CONCURRENCY} \
 		${API_BASE_URL}/invoices > ${AB}/invoice-result-c${AB_CONCURRENCY}.txt
+
+# Postgres
+
+create-database:
+	psql.exe -U postgres -c "CREATE DATABASE kafka"
