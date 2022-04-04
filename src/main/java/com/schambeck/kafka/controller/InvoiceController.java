@@ -3,6 +3,7 @@ package com.schambeck.kafka.controller;
 import com.schambeck.kafka.model.Invoice;
 import com.schambeck.kafka.producer.InvoiceCreatedProducer;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,8 +17,9 @@ class InvoiceController {
     private final InvoiceCreatedProducer producer;
 
     @PostMapping
-    void sendMessage(@RequestBody Invoice invoice) {
+    ResponseEntity<Invoice> create(@RequestBody Invoice invoice) {
         producer.sendMessage(invoice);
+        return ResponseEntity.accepted().body(invoice);
     }
 
 }
