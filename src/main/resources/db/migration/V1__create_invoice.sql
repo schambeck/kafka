@@ -1,0 +1,5 @@
+CREATE TABLE IF NOT EXISTS invoice (
+    id SERIAL PRIMARY KEY,
+    issued DATE NOT NULL,
+    total NUMERIC(12,2) NOT NULL
+);
