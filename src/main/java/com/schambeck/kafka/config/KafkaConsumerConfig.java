@@ -19,10 +19,10 @@ import static org.apache.kafka.clients.consumer.ConsumerConfig.GROUP_ID_CONFIG;
 @Configuration
 class KafkaConsumerConfig {
 
-    @Value("${kafka.bootstrap-address}")
-    String bootstrapAddress;
+    @Value("${kafka.bootstrap-servers}")
+    String bootstrapServers;
 
-    @Value("${invoice-created.group-id}")
+    @Value("${invoice-created.consumer.group-id}")
     String invoiceCreatedGroup;
 
     @Bean
@@ -34,7 +34,7 @@ class KafkaConsumerConfig {
 
     ConsumerFactory<String, Invoice> invoiceCreatedConsumerFactory() {
         Map<String, Object> props = new HashMap<>();
-        props.put(BOOTSTRAP_SERVERS_CONFIG, bootstrapAddress);
+        props.put(BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
         props.put(GROUP_ID_CONFIG, invoiceCreatedGroup);
         return new DefaultKafkaConsumerFactory<>(props, new StringDeserializer(), new JsonDeserializer<>(Invoice.class));
     }

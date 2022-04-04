@@ -30,7 +30,7 @@ public class InvoiceCreatedProducer {
             @Override
             public void onSuccess(@Nullable SendResult<String, Invoice> result) {
                 Objects.requireNonNull(result);
-                log.info("Invoice created sent with offset {}: {}", result.getRecordMetadata().offset(), invoice);
+                log.info("Invoice sent with offset {}: {}", result.getRecordMetadata().offset(), invoice);
             }
 
             @Override

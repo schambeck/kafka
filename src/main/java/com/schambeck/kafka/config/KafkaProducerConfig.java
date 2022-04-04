@@ -18,8 +18,8 @@ import static org.apache.kafka.clients.producer.ProducerConfig.*;
 @Configuration
 class KafkaProducerConfig {
 
-    @Value("${kafka.bootstrap-address}")
-    String bootstrapAddress;
+    @Value("${kafka.bootstrap-servers}")
+    String bootstrapServers;
 
     @Bean
     KafkaTemplate<String, Invoice> invoiceCreatedKafkaTemplate() {
@@ -29,7 +29,7 @@ class KafkaProducerConfig {
     @Bean
     ProducerFactory<String, Invoice> invoiceCreatedProducerFactory() {
         Map<String, Object> configs = new HashMap<>();
-        configs.put(BOOTSTRAP_SERVERS_CONFIG, bootstrapAddress);
+        configs.put(BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
         configs.put(KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
         configs.put(VALUE_SERIALIZER_CLASS_CONFIG, JsonSerializer.class);
         return new DefaultKafkaProducerFactory<>(configs);
