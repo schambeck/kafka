@@ -17,8 +17,9 @@
 		<java.version>11</java.version>
 		<lombok.version>1.18.22</lombok.version>
 		<postgresql.version>42.3.3</postgresql.version>
-		<h2.version>2.1.210</h2.version>
 		<flyway-core.version>8.5.4</flyway-core.version>
+		<h2.version>2.1.210</h2.version>
+		<spring-admin.version>2.6.3</spring-admin.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -38,6 +39,15 @@
 		<dependency>
 			<groupId>org.springframework.kafka</groupId>
 			<artifactId>spring-kafka</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>de.codecentric</groupId>
+			<artifactId>spring-boot-admin-starter-client</artifactId>
+			<version>${spring-admin.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
 		</dependency>
 
 		<dependency>
